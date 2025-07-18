@@ -27,10 +27,12 @@
         </div>
 
         <div
-          v-else-if="error"
-          class="flex items-center justify-center p-8 absolute top-0 left-1/2 rig"
+          v-else-if="error || message"
+          class="flex items-center justify-center p-10 absolute top-0 left-1/2"
         >
-          <div class="text-red-400">Error loading hero data: {{ error }}</div>
+          <h4 :style="{ color: message ? 'green' : 'red' }">
+            {{ message || 'Error loading hero data: ' + error }}
+          </h4>
         </div>
 
         <div class="flex flex-col lg:flex-row">
@@ -229,12 +231,15 @@ const submitHero = async () => {
       ? data.abilities.split(',').map((ability) => ability.trim())
       : []
     await heroesApi.editHero(id, data)
+    message.value = 'Hero updated!'
   } catch (err) {
     error.value = err.message || 'Failed to update hero'
     console.error(err)
   } finally {
     loading.value = false
-    message.value = ''
+    setTimeout(() => {
+      message.value = ''
+    }, 3000)
   }
 }
 

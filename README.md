@@ -1,4 +1,6 @@
-# marvel
+# MarvelHeroes
+
+Backend se nalazi na [ovom repozitoriju](https://github.com/hellovuki/fpmoz-user-interfaces/tree/marvel-heroes-api)
 
 This template should help get you started developing with Vue 3 in Vite.
 
