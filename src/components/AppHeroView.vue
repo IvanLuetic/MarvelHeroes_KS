@@ -49,7 +49,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useHeroesStore } from '@/stores/heroes'
 import heroesApi from '@/api/heroesApi'
@@ -59,7 +59,6 @@ import AppAddHeroModal from './AppAddHeroModal.vue'
 import AppEditHeroModal from './AppEditHeroModal.vue'
 
 const heroesStore = useHeroesStore()
-const heroes = ref([])
 const isAddHeroModalVisible = ref(false)
 const isEditHeroModalVisible = ref(false)
 const selectedHero = ref({})
@@ -73,13 +72,5 @@ const { filteredHeroes, filter } = storeToRefs(heroesStore)
 
 onMounted(async () => {
   await heroesApi.getHeroes()
-  heroes.value = heroesStore.heroes
 })
-
-watch(
-  () => heroesStore.heroes,
-  (updated) => {
-    heroes.value = updated
-  },
-)
 </script>
